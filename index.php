@@ -26,14 +26,7 @@ $chars_Simbol = "!@$%^&*#()-_+={}[]\|;:',./?";
 /**Generator Password
  * 
  */
-function generator_password_words($lenght,$chars)
-{
-    $random_str = '';
-    for ($x = 0; $x < $lenght; $x++) {
-        $random_str = $random_str  .  $chars[rand(0, strlen($chars) - 1)];
-    }
-    return $random_str;
-}
+include_once __DIR__ .  "/functions/functions.php";
 $charsTot = $chars_Word . $chars_Number . $chars_Simbol;
 $pass = generator_password_words($passwordlenght,$charsTot);
 echo $pass
