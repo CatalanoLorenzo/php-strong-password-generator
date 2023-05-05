@@ -15,6 +15,7 @@ Gestire ulteriori parametri per la password: quali caratteri usare fra numeri, l
 In allegato uno screenshot qualora non aveste l'ispirazione creativa! :arte:
 Confermate lettura come al solito e buon weekend! -->
 <?php
+session_start();
 $passwordlenght = isset($_GET['password_lenght']) && is_numeric($_GET['password_lenght']) ? $_GET['password_lenght'] : 0;
 
 echo (isset($_GET['password_lenght']));
@@ -23,13 +24,11 @@ echo ($passwordlenght);
 $chars_Word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 $chars_Number = "0123456789";
 $chars_Simbol = "!@$%^&*#()-_+={}[]\|;:',./?";
-/**Generator Password
- * 
- */
 include_once __DIR__ .  "/functions/functions.php";
 $charsTot = $chars_Word . $chars_Number . $chars_Simbol;
-$pass = generator_password_words($passwordlenght,$charsTot);
-echo $pass
+
+$_SESSION["password"] = generator_password_words($passwordlenght,$charsTot);
+
 
 ?>
 <!doctype html>
@@ -59,7 +58,7 @@ echo $pass
                         <p class="text-success">Nesun parametro valido inserito</p>
                     </div>
                 </div>
-                <form action="" method="get" class="col-8 card  d-flex justify-content-center p-3">
+                <form action="viewpassword.php" method="get" class="col-8 card  d-flex justify-content-center p-3">
                     <div class="col d-flex ">
                         <div class="px-5">
                             <p>Lunghezza password:</p>
