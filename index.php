@@ -17,17 +17,41 @@ Confermate lettura come al solito e buon weekend! -->
 <?php
 session_start();
 $passwordlenght = isset($_GET['password_lenght']) && is_numeric($_GET['password_lenght']) ? $_GET['password_lenght'] : 0;
-
+$if_words = isset($_GET['words']) ? true : false;
+$if_simbols = isset($_GET['simbols']) ? true : false;
+$if_numbers = isset($_GET['numbers']) ? true : false;
+$if_repeat = !empty($_GET['repeat']) ? (boolval($_GET['repeat']) ? 'true' : 'false'): 'error';
+/* if ($if_repeat == 'true') {
+    $if_repeat == boolval($if_repeat);
+}elseif ($if_repeat == 'false') {
+    $if_repeat == boolval($if_repeat);
+} */
+echo 'ci sono numeri ? = ';
+echo $if_numbers;
+echo ' , ci sono lettere ? = ';
+echo $if_words;
+echo ' , ci sono simboli ? = ';
+echo $if_simbols;
+echo ' , ci sono ripetizioni  ? = ';
+echo $if_repeat;
+echo ' , c è una lunghezza di password ? = ';
 echo (isset($_GET['password_lenght']));
+echo ' , la lunghezza è un numero ? = ';
 echo (is_numeric($passwordlenght));
+echo ' , quanto è lunga la password = ';
 echo ($passwordlenght);
 $chars_Word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 $chars_Number = "0123456789";
 $chars_Simbol = "!@$%^&*#()-_+={}[]\|;:',./?";
 include_once __DIR__ .  "/functions/functions.php";
-$charsTot = $chars_Word . $chars_Number . $chars_Simbol;
+$charsTot = chois_charstot($if_words, $chars_Word) . chois_charstot($if_simbols, $chars_Simbol) . chois_charstot($if_numbers, $chars_Number);
+echo ' , caratteri per generare la password sono = ';
+echo $charsTot;
+$password = control_repeat($if_repeat, $passwordlenght, $charsTot);
+echo ' ,la password generata è = ';
+echo $password;
+$_SESSION["pass"] = $password;
 
-$_SESSION["password"] = generator_password_words($passwordlenght,$charsTot);
 
 
 ?>
@@ -58,7 +82,7 @@ $_SESSION["password"] = generator_password_words($passwordlenght,$charsTot);
                         <p class="text-success">Nesun parametro valido inserito</p>
                     </div>
                 </div>
-                <form action="viewpassword.php" method="get" class="col-8 card  d-flex justify-content-center p-3">
+                <form action="" method="get" class="col-8 card  d-flex justify-content-center p-3">
                     <div class="col d-flex ">
                         <div class="px-5">
                             <p>Lunghezza password:</p>
@@ -71,30 +95,30 @@ $_SESSION["password"] = generator_password_words($passwordlenght,$charsTot);
                                 <input type="text" name="password_lenght" id="password_lenght">
                             </div>
 
-                            <!--  <div>
-                                    <input type="radio" name="true" id="true" value="true">
-                                    <label for="true">Si</label>
-                                </div>
+                            <div>
+                                <input type="radio" name="repeat" id="true" value="1">
+                                <label for="true">Si</label>
+                            </div>
 
-                                <div>
-                                    <input type="radio" name="false" id="false" value="false">
-                                    <label for="false">No</label>
-                                </div>
+                            <div>
+                                <input type="radio" name="repeat" id="false" value="0">
+                                <label for="false">No</label>
+                            </div>
 
-                                <div>
-                                    <input type="checkbox" name="words" id="words">
-                                    <label for="words">Lettere</label>
-                                </div>
+                            <div>
+                                <input type="checkbox" name="words" id="words">
+                                <label for="words">Lettere</label>
+                            </div>
 
-                                <div>
-                                    <input type="checkbox" name="numbers" id="numbers">
-                                    <label for="numbers">Numeri</label>
-                                </div>
+                            <div>
+                                <input type="checkbox" name="numbers" id="numbers">
+                                <label for="numbers">Numeri</label>
+                            </div>
 
-                                <div>
-                                    <input type="checkbox" name="simbols" id="simbols">
-                                    <label for="simbols">Simboli</label>
-                                </div> -->
+                            <div>
+                                <input type="checkbox" name="simbols" id="simbols">
+                                <label for="simbols">Simboli</label>
+                            </div>
                         </div>
                     </div>
                     <div class="col px-5">
