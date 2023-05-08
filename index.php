@@ -15,18 +15,26 @@ Gestire ulteriori parametri per la password: quali caratteri usare fra numeri, l
 In allegato uno screenshot qualora non aveste l'ispirazione creativa! :arte:
 Confermate lettura come al solito e buon weekend! -->
 <?php
-session_start();
+
 $passwordlenght = isset($_GET['password_lenght']) && is_numeric($_GET['password_lenght']) ? $_GET['password_lenght'] : 0;
-$if_words = isset($_GET['words']) ? true : false;
+/* var_dump($passwordlenght);
+ */$if_words = isset($_GET['words']) ? true : false;
 $if_simbols = isset($_GET['simbols']) ? true : false;
 $if_numbers = isset($_GET['numbers']) ? true : false;
-$if_repeat = !empty($_GET['repeat']) ? (boolval($_GET['repeat']) ? 'true' : 'false'): 'error';
-/* if ($if_repeat == 'true') {
+/* $if_repeat = !empty($_GET['repeat']) ? (boolval($_GET['repeat']) ? true : false): 'error';
+ */
+if (isset($_GET['repeat'])) {
+ $if_repeat = boolval($_GET['repeat']);
+/*  var_dump($if_repeat,'sono dentro');
+ */}
+ 
+var_dump($if_repeat); /*
+ *//* if ($if_repeat == 'true') {
     $if_repeat == boolval($if_repeat);
 }elseif ($if_repeat == 'false') {
     $if_repeat == boolval($if_repeat);
 } */
-echo 'ci sono numeri ? = ';
+/* echo 'ci sono numeri ? = ';
 echo $if_numbers;
 echo ' , ci sono lettere ? = ';
 echo $if_words;
@@ -39,18 +47,20 @@ echo (isset($_GET['password_lenght']));
 echo ' , la lunghezza è un numero ? = ';
 echo (is_numeric($passwordlenght));
 echo ' , quanto è lunga la password = ';
-echo ($passwordlenght);
+echo ($passwordlenght); */
 $chars_Word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 $chars_Number = "0123456789";
 $chars_Simbol = "!@$%^&*#()-_+={}[]\|;:',./?";
 include_once __DIR__ .  "/functions/functions.php";
 $charsTot = chois_charstot($if_words, $chars_Word) . chois_charstot($if_simbols, $chars_Simbol) . chois_charstot($if_numbers, $chars_Number);
-echo ' , caratteri per generare la password sono = ';
-echo $charsTot;
-$password = control_repeat($if_repeat, $passwordlenght, $charsTot);
-echo ' ,la password generata è = ';
-echo $password;
-$_SESSION["pass"] = $password;
+/* echo ' , caratteri per generare la password sono = ';
+echo $charsTot; */
+if(!empty($passwordlenght )){
+    header('Location: ./viewpassword.php');
+}
+/* echo ' ,la password generata è = ';
+echo $password; */
+
 
 
 

@@ -6,6 +6,7 @@ function generator_password_repeat($lenght, $chars)
     for ($x = 0; $x < $lenght; $x++) {
         $random_str = $random_str  .  $chars[rand(0, strlen($chars) - 1)];
     }
+    var_dump($random_str);
     return $random_str;
 }
 function generator_password_norepeat($length, $chars)
@@ -24,14 +25,19 @@ function generator_password_norepeat($length, $chars)
 function control_repeat($repeat_condition, $lenght, $chars)
 {
     if (is_bool($repeat_condition)) {
+        session_start();
         if ($repeat_condition == 1) {
-            return generator_password_repeat($lenght, $chars);
+            $_SESSION["pass"] = generator_password_repeat($lenght, $chars);
+            var_dump($_SESSION,'sto nel if');
         } elseif ($repeat_condition == 0) {
-            return generator_password_norepeat($lenght, $chars);
+            $_SESSION["pass"] =  generator_password_norepeat($lenght, $chars);
+            var_dump($_SESSION,'sto nel else');
         }
     }else{
         echo ' ERROR';
     }
+    
+    
 }
 
 
