@@ -18,16 +18,18 @@ Confermate lettura come al solito e buon weekend! -->
 
 $passwordlenght = isset($_GET['password_lenght']) && is_numeric($_GET['password_lenght']) ? $_GET['password_lenght'] : 0;
 /* var_dump($passwordlenght);
- */$if_words = isset($_GET['words']) ? true : false;
+ */
+$if_words = isset($_GET['words']) ? true : false;
 $if_simbols = isset($_GET['simbols']) ? true : false;
 $if_numbers = isset($_GET['numbers']) ? true : false;
 /* $if_repeat = !empty($_GET['repeat']) ? (boolval($_GET['repeat']) ? true : false): 'error';
  */
 if (isset($_GET['repeat'])) {
- $if_repeat = boolval($_GET['repeat']);
-/*  var_dump($if_repeat,'sono dentro');
- */}
- 
+    $if_repeat = boolval($_GET['repeat']);
+    /*  var_dump($if_repeat,'sono dentro');
+ */
+}
+
 var_dump($if_repeat); /*
  *//* if ($if_repeat == 'true') {
     $if_repeat == boolval($if_repeat);
@@ -55,7 +57,9 @@ include_once __DIR__ .  "/functions/functions.php";
 $charsTot = chois_charstot($if_words, $chars_Word) . chois_charstot($if_simbols, $chars_Simbol) . chois_charstot($if_numbers, $chars_Number);
 /* echo ' , caratteri per generare la password sono = ';
 echo $charsTot; */
-if(!empty($passwordlenght )){
+if (!empty($passwordlenght)) {
+    control_repeat($if_repeat, $passwordlenght, $charsTot);
+    echo ($_SESSION["pass"]);
     header('Location: ./viewpassword.php');
 }
 /* echo ' ,la password generata è = ';
